@@ -17,7 +17,7 @@ class DataFrame:
             string += key+", "
         string += "\n"+"-" * len(string)
         for row in range(min(5, self.shape[0])):
-            string += "\n"+", ".join([self.data[column][row] for column in self.columns])
+            string += "\n"+", ".join([str(self.data[column][row]) for column in self.columns])
         return string
     def __setitem__(self, key, value):
         """
@@ -27,7 +27,7 @@ class DataFrame:
             When providing an int and a str in columns, insert item into index
         """
         if type(key) == str and value in [None, 0, ""]:
-            self.data[key] = []
+            self.data[key] = [value] * self.shape[0]
         elif type(key[0]) == int and type(key[1]) == str and key[1] in self.columns:
             self.data[key[1]].insert(key[0], value)
         pass
